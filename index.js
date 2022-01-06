@@ -1,7 +1,10 @@
 const inquirer = require('inquirer');
-const db = require('./connection');
+const connection = require('./connection.js');
+require('console.table');
 
-inquirer
+
+const userInput = function(){
+  inquirer
   .prompt([
     {
       type: 'list',
@@ -35,13 +38,29 @@ inquirer
             break;
         }
     });
-
-function viewAllDepartments() {
+  }
+async function viewAllDepartments() {
     console.log('view department')
-    db.connection.promise().query('SELECT * FROM departments')
+  const departments = await connection.promise().query('SELECT * FROM department')
+  console.table(departments[0]);
+  userInput();
 }
-    
 
+userInput();
+    
+async function viewAllRoles() {
+  console.log('view role')
+const roles = await connection.promise().query('SELECT * FROM role')
+console.table(roles[0]);
+userInput();
+}
+
+async function viewAllEmployees() {
+  console.log('view employee')
+const employees = await connection.promise().query('SELECT * FROM employee')
+console.table(employees[0]);
+userInput();
+}
 
 // SCHEMA.SQL
   // 3 tables
