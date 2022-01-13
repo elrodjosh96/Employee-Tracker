@@ -10,7 +10,7 @@
 * [License](#license)
 * [Questions](#questions)
 
-
+[![Check out this Video](https://youtu.be/bXU1HbT0KnU)](https://youtu.be/bXU1HbT0KnU)
 
 ## Description
 I have created a content management system(CMS), based off the following User Story and Acceptance Criteria.
