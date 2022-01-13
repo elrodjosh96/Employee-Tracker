@@ -62,6 +62,94 @@ console.table(employees[0]);
 userInput();
 }
 
+async function addDepartment() {
+  inquirer
+  .prompt([
+    {
+      type: 'text',
+      message: 'What is the Deparment Name?',
+      name: 'name',
+    }])
+    .then(answers => {
+      console.log(answers)
+     connection.promise().query("INSERT INTO department SET ?;", answers)
+     userInput();
+    })
+}
+
+async function addRole() {
+  const departments = await connection.promise().query("SELECT * FROM department")
+  const departmentChoices = departments[0].map(department => {
+    console.log(department);
+    return {name: department.name, value: department.id}
+  })
+  console.log(departmentChoices);
+  inquirer
+  .prompt([
+    {
+      type: 'text',
+      message: 'What is the Roles title?',
+      name: 'title',
+    },
+    {
+      type: 'text',
+      message: 'What is the Roles salary?',
+      name: 'salary',
+    },
+    {
+      type: 'list',
+      message: 'What is the Roles department?',
+      name: 'department_id',
+      choices: departmentChoices
+    }])
+    .then(answers => {
+      console.log(answers)
+     connection.promise().query("INSERT INTO role SET ?;", answers)
+     userInput();
+    })
+}
+
+async function addEmployee() {
+  const role = await connection.promise().query("SELECT * FROM role")
+  const roleChoices = role[0].map(role => {
+    console.log(role);
+    return {title: role.name, value: role.id}
+  })
+  inquirer
+  .prompt([
+    {
+      type: 'text',
+      message: 'What is the Employees first name?',
+      name: 'first_name',
+    },
+    {
+      type: 'text',
+      message: 'What is the Employees last name?',
+      name: 'last_name',
+    },
+    {
+      type: 'list',
+      message: 'What is the Employees Role ID?',
+      name: 'role_id',
+      choices: roleChoices
+    },
+    {
+      type: 'text',
+      message: 'What is the Employees Manager ID?',
+      name: 'manager_id',
+    }])
+    .then(answers => {
+      if (answers.manager_id === 'null') {
+        answers.manager_id = null;
+        connection.promise().query("INSERT INTO employee SET ?;", answers)
+      } else {
+        connection.promise().query("INSERT INTO employee SET ?;", answers)
+      }
+      console.log(answers)
+     userInput();
+    })
+}
+
 // SCHEMA.SQL
   // 3 tables
   // every table has a primary key ID

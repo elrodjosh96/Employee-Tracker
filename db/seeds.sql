@@ -10,7 +10,7 @@ INSERT INTO role (
     salary,
     department_id
 )
-VALUES ('Shipping&Receiving', 40000, 3), ('Sales Lead', 70000, 4), ('Account Handler', 65000, 1), ('Senior HR Manager', 80000, 2), ('Quality');
+VALUES ('Shipping&Receiving', 40000, 3), ('Sales Lead', 70000, 4), ('Account Handler', 65000, 1), ('Senior HR Manager', 80000, 2);
 
 INSERT INTO employee (
     first_name,
